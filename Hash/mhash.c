@@ -44,11 +44,11 @@ int buscar(char *elemento, celula *tabela){//busca na tabela hash com endereçam
     do{//Repetição enquanto o estado das posições estiver ocupado e as tentativas não excedem o limite da tabela
         chave = espalhar(elemento, tentativa);//a busca inicia pela chave do elemento, caso não esteja na posição da chave a busca continuará nas chaves dos tratamentos de uma possível colisão
         if(strcmp(tabela[chave].elemento, elemento) == 0 && tabela[chave].estado == OCUPADA) {//se o elemento buscado for igual ao elemento da posição e o estado da posição seja "OCUPADA",
-                                                                                //o return encerrará a busca
+                                                                                            //o return encerrará a busca
             return chave;//se o retorno for diferente de MAX, o elemento foi encontrado e este retorno será a chave do elemento encontrado
         }
         tentativa++;//se as condições não forem atendidas, a tentativa modificará o elemento para verificar a próxima posição
-    }while(tabela[chave].estado != VAZIA && tentativa != MAX);
+    }while(tabela[chave].estado != VAZIA && tentativa != MAX);//se a tentativa encontrar a posição vazia, o elemento não está na tabela
 
     //se todos as posições forem percorridas e o elemento não for encontrado, a busca se encerra
     return MAX;//se o retorno for MAX, o elemento não foi encontrado
@@ -60,16 +60,13 @@ int remover(char *elemento, celula *tabela){//busca e remoção na tabela hash c
 
     do{//Repetição enquanto o estado das posições estiver ocupado e as tentativas não excedem o limite da tabela
         chave = espalhar(elemento, tentativa);//a busca inicia pela chave do elemento, caso não esteja na posição da chave a busca continuará nas chaves dos tratamentos de uma possível colisão
-        if(tabela[chave].estado == OCUPADA) {//se o estado da posição for "OCUPADA"
-            if(strcmp(tabela[chave].elemento, elemento) == 0){//se o elemento buscado for igual ao elemento da posição, o estado da posição se tornará "REMOVIDA" e o return encerrará a remoção
-                tabela[chave].estado = REMOVIDA;//mudar
-                return chave;//se o retorno for diferente de MAX, o elemento foi encontrado e este retorno será a chave do elemento encontrado                
-            }
+        if(strcmp(tabela[chave].elemento, elemento) == 0 && tabela[chave].estado == OCUPADA) {//se o elemento buscado for igual ao elemento da posição e o estado da posição seja "OCUPADA",
+                                                                                            //o return encerrará a busca
+            tabela[chave].estado = REMOVIDA;//mudar
+            return chave;//se o retorno for diferente de MAX, o elemento foi encontrado e este retorno será a chave do elemento encontrado 
         }
-        if(tabela[chave].estado == VAZIA)
-            return MAX;
         tentativa++;//se as condições não forem atendidas, a tentativa modificará o elemento para verificar a próxima posição
-    }while(tentativa != MAX);
+    }while(tabela[chave].estado != VAZIA && tentativa != MAX);
 
     //se todos as posições forem percorridas e o elemento não for encontrado, a busca se encerra
     return MAX;//se o retorno for MAX, o elemento não foi encontrado

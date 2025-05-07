@@ -12,13 +12,12 @@ struct pilha{
     char elemento;
     Pilha *ponteiro;
 };
-//Adiciona um item ao topo da pilha
-//@param pilha Estrutura de pilha.
-void push(char item, Pilha *topo);
-//Remove o item do topo da pilha
-//@param pilha Estrutura de pilha.
-void pop(Pilha *topo);
-//Retorna 
-//@param pilha Estrutura de pilha.
-//@return (char) Elemento do topo da pilha.
-char peek(Pilha *topo);
+
+//Adiciona um item ao topo de uma estrutura de pilha
+//@param item Item a ser adicionado ao topo de uma estrutura de Pilha
+//@param topo Endereço do topo de uma estrutura de pilha
+void empilhar(char item, Pilha **topo);
+
+//Remove o item do topo de uma estrutura de pilha
+//@param topo Endereço do topo de uma estrutura de pilha a ser removido
+void desempilhar(Pilha **topo);

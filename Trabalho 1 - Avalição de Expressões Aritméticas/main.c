@@ -11,22 +11,25 @@
 
 int main(){
 
-    Pilha *pilha;
-    pilha->ponteiro = NULL;
-    pilha->elemento = ' ';
+    Pilha *pilha = NULL;
 
-    printf("\n%c\n%p\n", pilha->elemento, pilha->ponteiro);
-
-    pop(pilha);
-    push('a', pilha);
-    printf("%c\n", peek(pilha));
-    push('b', pilha);
-    printf("%c\n", peek(pilha));
-    push('c', pilha);
-    push('d', pilha);
-    printf("%c\n", peek(pilha));
-    pop(pilha);
-    printf("%c\n", peek(pilha));
+    desempilhar(&pilha);
+    empilhar('a', &pilha);
+    printf("\n%c\n", pilha->elemento);
+    empilhar('b', &pilha);
+    printf("\n%c\n", pilha->elemento);
+    empilhar('c', &pilha);
+    printf("\n%c\n", pilha->elemento);
+    empilhar('d', &pilha);
+    printf("\n%c\n", pilha->elemento);
+    desempilhar(&pilha);
+    printf("__________________\n%c\n", pilha->elemento);
+    desempilhar(&pilha);
+    printf("\n%c\n", pilha->elemento);
+    printf("\n%c\n", pilha->ponteiro->elemento);
+    desempilhar(&pilha);
+    desempilhar(&pilha);
+    desempilhar(&pilha);
 
     return 0;
 }

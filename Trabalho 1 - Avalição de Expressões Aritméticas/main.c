@@ -3,7 +3,7 @@
 * Nome dos(as) estudantes: Henrique Dias Albernaz
 * Trabalho 1
 * Disciplina: Estrutura de Dados
-* Objetivo:
+* Objetivo: Avaliação de Expressões Aritméticas
 */
 #include <stdio.h>
 #include <string.h>
@@ -12,11 +12,15 @@
 
 int main(){
 
-    int k = 5;
+    int k = 0;
 
+    printf("\nBem vindo! Quantas expressões avaliaremos agora?\n");
+    scanf("%d", &k);
     char expressao[k][50];
+
     for(int i = 0; i < k; i++){
-        scanf("\n%s", expressao[i]);
+        scanf("%s", expressao[i]);
+        printf("%s\n", expressao[i]);
     }
 
     return 0;

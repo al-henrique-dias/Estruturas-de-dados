@@ -6,30 +6,19 @@
 * Objetivo:
 */
 #include <stdio.h>
+#include <string.h>
 #include "arvore.h"
 #include "pilha.h"
 
 int main(){
 
-    Pilha *pilha = NULL;
+    int k = 5;
 
-    desempilhar(&pilha);
-    empilhar('a', &pilha);
-    printf("\n%c\n", pilha->elemento);
-    empilhar('b', &pilha);
-    printf("\n%c\n", pilha->elemento);
-    empilhar('c', &pilha);
-    printf("\n%c\n", pilha->elemento);
-    empilhar('d', &pilha);
-    printf("\n%c\n", pilha->elemento);
-    desempilhar(&pilha);
-    printf("__________________\n%c\n", pilha->elemento);
-    desempilhar(&pilha);
-    printf("\n%c\n", pilha->elemento);
-    printf("\n%c\n", pilha->ponteiro->elemento);
-    desempilhar(&pilha);
-    desempilhar(&pilha);
-    desempilhar(&pilha);
+    char expressao[k][50];
+    for(int i = 0; i < k; i++){
+        scanf("\n%s", expressao[i]);
+    }
 
     return 0;
+
 }

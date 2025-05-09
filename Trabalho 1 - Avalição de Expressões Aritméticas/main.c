@@ -13,6 +13,7 @@
 int main(){
 
     int k = 0;
+    Arvore *arvore;
 
     printf("\nBem vindo! Quantas expressões avaliaremos agora?\n");
     scanf("%d", &k);
@@ -20,6 +21,11 @@ int main(){
 
     for(int i = 0; i < k; i++){
         scanf("%s", expressao[i]);
+        for(int j = 0; i < sizeof(expressao[i]); i++){
+            if(expressao[i][j] != '(' || expressao[i][j] != ')'){
+                
+            }
+        }
         printf("%s\n", expressao[i]);
     }
 

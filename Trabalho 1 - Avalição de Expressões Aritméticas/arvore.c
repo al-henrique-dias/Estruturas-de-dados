@@ -49,7 +49,7 @@ int arvore_pertence (Arvore* arvore, char elemento){
 
 void arvore_imprime (Arvore* arvore){
     if(!arvore_vazia(arvore)){
-        printf("%c", arvore->elemento);
+        printf("%c\n", arvore->elemento);
         arvore_imprime(arvore->esquerdo);
         arvore_imprime(arvore->direito);
     }
@@ -60,7 +60,7 @@ void processa(Arvore* arvore){
 }
 
 void pre_ordem(Arvore* arvore){
-    if(!arvore_vazia){
+    if(!arvore_vazia(arvore)){
         processa(arvore);
         pre_ordem(arvore->esquerdo);
         pre_ordem(arvore->direito);
@@ -68,7 +68,7 @@ void pre_ordem(Arvore* arvore){
 }
 
 void in_ordem(Arvore* arvore){
-    if(!arvore_vazia){
+    if(!arvore_vazia(arvore)){
         in_ordem(arvore->esquerdo);
         processa(arvore);
         in_ordem(arvore->direito);

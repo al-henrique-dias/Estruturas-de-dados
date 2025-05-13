@@ -47,8 +47,13 @@ int arvore_pertence (Arvore* arvore, char elemento);
 void arvore_imprime (Arvore* arvore);
 
 //Executa certa operação em formato de pré-ordem (raiz, nó esquerdo, nó direito)
+//@param  arvore Estrutura de árvore binária para ser vizualizada
 void pre_ordem(Arvore* arvore);
+
 //Executa certa operação em formato de em-ordem (nó esquerdo, raiz, nó direito)
+//@param  arvore Estrutura de árvore binária para ser vizualizada
 void in_ordem(Arvore* arvore);
+
 //Executa certa operação em formato de pós-ordem (nó esquerdo, nó direito, raiz)
+//@param  arvore Estrutura de árvore binária para ser vizualizada
 void pos_ordem(Arvore* arvore);

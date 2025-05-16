@@ -14,7 +14,7 @@
 int main(){
 
     int k = 0, sub = 0;
-    Arvore *subarvore[10];
+    Arvore *subarvore[20];
 
     printf("\nBem vindo! Quantas expressões avaliaremos agora?\n");
     scanf("%d", &k);
@@ -25,36 +25,53 @@ int main(){
         printf("\nInsira a expressao %d:\n", i + 1);
         scanf("%s", expressao[i]);
         expressao[i][strlen(expressao[i])] = '\0';
-        sub = 0;
+        sub = 0;//reseta, mas em uso começa em 1
         for(int j = 0; j < strlen(expressao[i]); j++){//percorre a expressão i
             if(expressao[i][j] == ')'){//quando um parênteses é encontrado na expressão, o programa começa a buscar pelos símbolos e números correspondentes
-                for(int k = j; k > 0; k--){
-                    if(ispunct(expressao[i][k]) && (expressao[i][k] != '(') && (expressao[i][k] != ')')){
+                for(int l = j; l > 0; l--){
+                    if(ispunct(expressao[i][l]) && (expressao[i][l] != '(') && (expressao[i][l] != ')')){
+                        printf("subarvore %d:\n", sub);
                         if(j == strlen(expressao[i]) - 1){
-                            arvore[i] = arvore_cria(expressao[i][k], arvore_criavazia(), arvore_criavazia());
+                            printf("arvore:\n");
+                            arvore[i] = arvore_cria(
+                                expressao[i][l],
+                                isalpha(expressao[i][l-1]) ?
+                                    arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
+                                    :
+                                    subarvore[sub-2],
+                                isalpha(expressao[i][l+1]) ?
+                                    arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
+                                    :
+                                    subarvore[sub-1]
+                            );
                             arvore_imprime(arvore[i]);
-                            printf("raiz da arvore %d: %c\n", i, expressao[i][k]);
-                            k = 0;
+                            printf("raiz da arvore %d: %c\n", i, expressao[i][l]);
+                            l = 0;
                             break;
                         }
                         subarvore[sub] = arvore_cria(
-                            expressao[i][k],//raiz da subárvore
-                            isalpha(expressao[i][k-1]) ?//folha esquerda da subárvore
+                            expressao[i][l],//raiz da subárvore
+                            isalpha(expressao[i][l-1]) ?//folha esquerda da subárvore
                                 //PARA TESTES - isto está procurando por letras, alterar para isdigit(expressao[i][k-1])
-                                arvore_cria(expressao[i][k-1], arvore_criavazia(), arvore_criavazia()) :
-                                arvore_criavazia(),
-                            isalpha(expressao[i][k+1]) ?//folha direita da subárvore
+                                arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
+                                :
+                                (expressao[i][l-1] != ')') && (expressao[i][l+1] != '(') ?
+                                    subarvore[sub-1]
+                                    :
+                                    subarvore[sub-2],
+                            isalpha(expressao[i][l+1]) ?//folha direita da subárvore
                                 //PARA TESTES - isto está procurando por letras, alterar para isdigit(expressao[i][k+1])
-                                arvore_cria(expressao[i][k+1], arvore_criavazia(), arvore_criavazia()) :
-                                arvore_criavazia()
+                                arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
+                                :
+                                subarvore[sub-1]
                         );
                         arvore_imprime(subarvore[sub]);
+                        printf("raiz da subarvore %d: %c\n", sub, expressao[i][l]);
+                        printf("esquerdo da subarvore %d: %c\n", sub, expressao[i][l-1]);
+                        printf("direito da subarvore %d: %c\n", sub,  expressao[i][l+1]);
                         sub++;
-                        printf("raiz da subarvore %d: %c\n", sub - 1, expressao[i][k]);
-                        printf("esquerdo da subarvore %d: %c\n", sub - 1, expressao[i][k-1]);
-                        printf("direito da subarvore %d: %c\n", sub - 1,  expressao[i][k+1]);
-                        expressao[i][k] = 'v';//impede o reuso do simbolo encontrado nesta posição
-                        k = 0;
+                        expressao[i][l] = 'v';//impede o reuso do simbolo encontrado nesta posição
+                        l = 0;
                     }
                 }
             }

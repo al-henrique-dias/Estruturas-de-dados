@@ -21,3 +21,5 @@ void empilhar(char item, Pilha **topo);
 //Remove o item do topo de uma estrutura de pilha
 //@param topo Endereço do topo de uma estrutura de pilha a ser removido
 void desempilhar(Pilha **topo);
+
+char usar_topo(Pilha **topo);

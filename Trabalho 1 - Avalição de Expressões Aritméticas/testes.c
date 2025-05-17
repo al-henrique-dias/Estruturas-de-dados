@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include "pilha.h"
 
 int main(){
 
-    char a[10];
-
-    scanf("%s", a);
-    printf("\nstring %s\n", a);
-    printf("size of string %d\n", sizeof(a));
-    printf("string lenght %d\n", strlen(a));
-    a[strlen(a)] = '\0';
-    printf("string lenght %d\n", strlen(a));
-    printf("string %s\n", a);
+    Pilha *a = NULL;
+    empilhar('1', &a);
+    empilhar('2', &a);
+    printf("%d\n%d\n%d\n%c\n%d\n%c", a->elemento - '0', a->elemento+1 - '0', usar_topo(&a) - '0', a->elemento, usar_topo(&a) - '0', a->elemento);
 
     return 0;
 }

@@ -14,6 +14,7 @@
 int main(){
 
     int k = 0, sub = 0;
+    Pilha *galhos = NULL;
     Arvore *subarvore[20];
 
     printf("\nBem vindo! Quantas expressões avaliaremos agora?\n");
@@ -34,15 +35,17 @@ int main(){
                         if(j == strlen(expressao[i]) - 1){
                             printf("arvore:\n");
                             arvore[i] = arvore_cria(
-                                expressao[i][l],
-                                isalpha(expressao[i][l-1]) ?
+                                expressao[i][l],//raiz
+                                isalpha(expressao[i][l-1]) ?//sub-árvore esquerda
+                                //PARA TESTES - isto está procurando por letras, alterar para isdigit(expressao[i][k-1])
                                     arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
                                     :
-                                    subarvore[sub-2],
-                                isalpha(expressao[i][l+1]) ?
+                                    subarvore[(int)usar_topo(&galhos)],
+                                isalpha(expressao[i][l+1]) ?//sub-árvore direita
+                                //PARA TESTES - isto está procurando por letras, alterar para isdigit(expressao[i][k+1])
                                     arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
                                     :
-                                    subarvore[sub-1]
+                                    subarvore[(int)usar_topo(&galhos)]
                             );
                             arvore_imprime(arvore[i]);
                             printf("raiz da arvore %d: %c\n", i, expressao[i][l]);
@@ -65,6 +68,11 @@ int main(){
                                 :
                                 subarvore[sub-1]
                         );
+                        if(!(isalpha(expressao[i][l-1])))
+                            desempilhar(&galhos);
+                        if(!(isalpha(expressao[i][l-1])))
+                            desempilhar(&galhos);
+                        empilhar(sub, &galhos);//empilhar posição do vetor
                         arvore_imprime(subarvore[sub]);
                         printf("raiz da subarvore %d: %c\n", sub, expressao[i][l]);
                         printf("esquerdo da subarvore %d: %c\n", sub, expressao[i][l-1]);

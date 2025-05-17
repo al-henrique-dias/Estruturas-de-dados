@@ -32,3 +32,15 @@ void desempilhar(Pilha **topo){
     free(aux);//o espaço na memória indicado pelo ponteiro auxiliar (o item do topo da pilha) é liberado
 
 }
+
+char usar_topo(Pilha **topo){
+
+    Pilha *aux = *topo;
+    char elemento = aux->elemento;
+
+    *topo = aux->ponteiro;
+    free(aux);
+
+    return elemento;
+
+}

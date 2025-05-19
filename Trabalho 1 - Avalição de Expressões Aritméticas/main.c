@@ -14,7 +14,7 @@
 int main(){
 
     int k = 0, sub = 0;
-    Pilha *galhos = NULL;
+    Pilha *galhos = NULL, *resultado = NULL;
     Arvore *subarvore[20], *arvore = arvore_criavazia();
 
     printf("\nBem vindo! Quantas expressoes avaliaremos agora?\n");
@@ -91,6 +91,8 @@ int main(){
         in_ordem(arvore);
         printf("\nArvore (pos-ordem): ");
         pos_ordem(arvore);
+        avaliar(arvore, &resultado);
+        printf("Resultado: %d", (int)resultado->elemento);
     }
     arvore = arvore_libera(arvore);
     printf("\n");

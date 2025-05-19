@@ -5,6 +5,7 @@
 * Disciplina: Estrutura de Dados
 * Objetivo:
 */
+#include "pilha.h"
 
 //Árvore binária
 typedef struct arvore Arvore;
@@ -57,3 +58,5 @@ void in_ordem(Arvore* arvore);
 //Executa certa operação em formato de pós-ordem (nó esquerdo, nó direito, raiz)
 //@param  arvore Estrutura de árvore binária para ser vizualizada
 void pos_ordem(Arvore* arvore);
+
+void avaliar(Arvore* arvore, Pilha **expressao);

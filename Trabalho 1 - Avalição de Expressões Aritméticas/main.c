@@ -14,8 +14,8 @@
 int main(){
 
     int k = 0, sub = 0;
-    Pilha *galhos = NULL, *resultado = NULL;
-    Arvore *subarvore[20], *arvore = arvore_criavazia();
+    Pilha* galhos = NULL, * resultado = NULL;
+    Arvore* subarvore[20], * arvore = arvore_criavazia();
 
     printf("\nBem vindo! Quantas expressoes avaliaremos agora?\n");
     scanf("%d", &k);
@@ -43,11 +43,11 @@ int main(){
                                 isdigit(expressao[i][l-1]) ?//sub-árvore esquerda
                                     arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
                                     :
-                                    subarvore[(int)desempilhar(&galhos)],
+                                    subarvore[desempilhar(&galhos)],
                                 isdigit(expressao[i][l+1]) ?//sub-árvore direita
                                     arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
                                     :
-                                    subarvore[(int)desempilhar(&galhos)]
+                                    subarvore[desempilhar(&galhos)]
                             );
                             
                             l = 0;
@@ -92,10 +92,9 @@ int main(){
         printf("\nArvore (pos-ordem): ");
         pos_ordem(arvore);
         avaliar(arvore, &resultado);
-        printf("Resultado: %d", (int)resultado->elemento);
+        printf("\nResultado: %d\n", resultado->elemento);
     }
     arvore = arvore_libera(arvore);
-    printf("\n");
 
     return 0;
 

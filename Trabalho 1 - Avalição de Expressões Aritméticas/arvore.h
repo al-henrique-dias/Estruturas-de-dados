@@ -6,11 +6,12 @@
 * Objetivo:
 */
 #include "pilha.h"
+#pragma once
 
 //Árvore binária
 typedef struct arvore Arvore;
 struct arvore {
-    char elemento;
+    char elemento[5];
     struct arvore* direito;
     struct arvore* esquerdo;
 };
@@ -25,7 +26,7 @@ Arvore* arvore_criavazia ();
 //@param esquerdo Ponteiro para endereço de nó esquerdo da raiz da estrutura de árvore binária criada
 //@param direito Ponteiro para endereço de nó esquerdo da raiz da estrutura de árvore binária criada
 //@return estrutura de árvore binária com raiz e subárvores
-Arvore* arvore_cria (char elemento, Arvore* esquerdo, Arvore* direito);
+Arvore* arvore_cria (char* elemento, Arvore* esquerdo, Arvore* direito);
 
 //Libera o espaço de memória ocupado por uma dada estrutura de árvore binária
 //@param arvore Estrutura de árvore binária a ser liberada
@@ -41,7 +42,7 @@ int arvore_vazia (Arvore* arvore);
 //@param arvore Estrutura de árvore binária onde se verificará a ocorrência do elemento
 //@param elemento Caracter a ser verificado
 //@return Ocorrência do elemento: (1) - o elemento pertence à árvore; (0) - o elemento não pertence à árvore;
-int arvore_pertence (Arvore* arvore, char elemento);
+int arvore_pertence (Arvore* arvore, char* elemento);
 
 //Imprime as informações dos nós da árvore
 //@param arvore Estrutura de árvore binária para ser vizualizada
@@ -59,4 +60,4 @@ void in_ordem(Arvore* arvore);
 //@param  arvore Estrutura de árvore binária para ser vizualizada
 void pos_ordem(Arvore* arvore);
 
-void avaliar(Arvore* arvore, Pilha **expressao);
+void avaliar(Arvore* arvore, Pilha** expressao);

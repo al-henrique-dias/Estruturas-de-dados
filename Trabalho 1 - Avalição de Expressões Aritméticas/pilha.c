@@ -9,9 +9,9 @@
 * Objetivo:
 */
 
-void empilhar(char item, Pilha **topo){
+void empilhar(char item, Pilha** topo){
 
-    Pilha *novo = (Pilha*)malloc(sizeof(Pilha));//aloca um espaço na memória para o novo item
+    Pilha* novo = (Pilha*)malloc(sizeof(Pilha));//aloca um espaço na memória para o novo item
 
     novo->elemento = item;//o novo item recebe seu valor
     novo->ponteiro = *topo;//o ponteiro do item aponta para o topo da pilha
@@ -19,15 +19,15 @@ void empilhar(char item, Pilha **topo){
 
 }
 
-char desempilhar(Pilha **topo){
+int desempilhar(Pilha** topo){
 
     if(*topo == NULL){//verifica se a pilha está vazia, se estiver, a função é encerrada
         printf("\nA pilha está vazia, não há nada para ser removido.\n");
-        return '\0';
+        return -1;
     }
 
     Pilha *aux = *topo;//um ponteiro auxiliar é criado, apontando para o mesmo endereço do topo da pilha
-    char elemento = aux->elemento;
+    int elemento = aux->elemento;
 
     *topo = aux->ponteiro;//o topo da pilha passa a apontar para o endereço de seu ponteiro (o mesmo do ponteiro auxiliar)
     free(aux);//o espaço na memória indicado pelo ponteiro auxiliar (o item do topo da pilha) é liberado

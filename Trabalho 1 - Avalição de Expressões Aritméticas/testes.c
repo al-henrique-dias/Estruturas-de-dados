@@ -4,6 +4,7 @@
 
 int main(){
 
+///////////////////////
     if(isdigit(arvore->elemento)){
         empilhar(arvore->elemento, *expressao);
     }else{
@@ -24,6 +25,15 @@ int main(){
                 break;
         }
     }
-
+///////////////////////////
+Arvore* arvore_cria(char* elemento, Arvore* esquerdo, Arvore* direito){
+    Arvore* arvore = (Arvore*)malloc(sizeof(Arvore));
+    arvore->elemento = malloc(strlen(elemento) + 1); // Allocate memory for the string
+    strcpy(arvore->elemento, elemento); // Copy the string
+    arvore->esquerdo = esquerdo;
+    arvore->direito = direito;
+    return arvore;
+}
+////////////////////////////////
     return 0;
 }

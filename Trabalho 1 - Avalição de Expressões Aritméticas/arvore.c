@@ -7,18 +7,20 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include "arvore.h"
+#include "pilha.h"
 
 Arvore* arvore_criavazia(){
     return NULL;
 }
 
-Arvore* arvore_cria(char elemento, Arvore* esquerdo, Arvore* direito){
+Arvore* arvore_cria(char* elemento, Arvore* esquerdo, Arvore* direito){
     Arvore* arvore = (Arvore*)malloc(sizeof(Arvore));
-    arvore->elemento = elemento;
-    arvore->esquerdo = esquerdo;
-    arvore->direito = direito;
+    strcpy(arvore->elemento, elemento);
+    arvore->esquerdo, esquerdo;
+    arvore->direito, direito;
     return arvore;
 }
 
@@ -35,7 +37,7 @@ int arvore_vazia(Arvore* arvore){
     return arvore==NULL;
 }
 
-int arvore_pertence(Arvore* arvore, char elemento){
+int arvore_pertence(Arvore* arvore, char* elemento){
     if(arvore_vazia(arvore)){
         return 0;
     } else {
@@ -50,14 +52,14 @@ int arvore_pertence(Arvore* arvore, char elemento){
 
 void arvore_imprime(Arvore* arvore){
     if(!arvore_vazia(arvore)){
-        printf("%c\n", arvore->elemento);
+        printf("%s\n", arvore->elemento);
         arvore_imprime(arvore->esquerdo);
         arvore_imprime(arvore->direito);
     }
 }
 
 void processa(Arvore* arvore){
-    printf("%c ", arvore->elemento);
+    printf("%s ", arvore->elemento);
 }
 
 void pre_ordem(Arvore* arvore){
@@ -84,28 +86,28 @@ void pos_ordem(Arvore* arvore){
     }
 }
 
-void avaliar(Arvore* arvore, Pilha **expressao){
+void avaliar(Arvore* arvore, Pilha** expressao){
     if(!arvore_vazia(arvore)){
         avaliar(arvore->esquerdo, expressao);
         avaliar(arvore->direito, expressao);
         //processa(arvore);
         if(isdigit(arvore->elemento))
-            empilhar(arvore->elemento, expressao);
+            empilhar(atoi(arvore->elemento), expressao);
         else{
-            int valor1 = (int)desempilhar(expressao);
-            int valor2 = (int)desempilhar(expressao);
-            switch(arvore->elemento){
+            int valor1 = desempilhar(expressao);
+            int valor2 = desempilhar(expressao);
+            switch(*arvore->elemento){
                 case '+':
-                    empilhar((char)(valor1+valor2), expressao);
+                    empilhar(valor1 + valor2, expressao);
                     break;
                 case '-':
-                    empilhar((char)(valor1-valor2), expressao);
+                    empilhar(valor1 - valor2, expressao);
                     break;
                 case '*':
-                    empilhar((char)(valor1*valor2), expressao);
+                    empilhar(valor1 * valor2, expressao);
                     break;
                 case '/':
-                    empilhar((char)(valor1/valor2), expressao);
+                    empilhar(valor1 / valor2, expressao);
                     break;
             }
         }

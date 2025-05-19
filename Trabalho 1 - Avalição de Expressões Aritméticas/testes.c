@@ -1,13 +1,29 @@
 #include <stdio.h>
 #include <string.h>
-#include "pilha.h"
+#include "arvore.h"
 
 int main(){
 
-    Pilha *a = NULL;
-    empilhar('1', &a);
-    empilhar('2', &a);
-    printf("%d\n%d\n%d\n%c\n%d\n%c", a->elemento - '0', a->elemento+1 - '0', usar_topo(&a) - '0', a->elemento, usar_topo(&a) - '0', a->elemento);
+    if(isdigit(arvore->elemento)){
+        empilhar(arvore->elemento, *expressao);
+    }else{
+        int valor1 = (int)desempilhar(*expressao);
+        int valor2 = (int)desempilhar(*expressao);
+        switch(arvore->elemento){
+            case '+' :
+                empilhar((char)(valor1+valor2), *expressao);
+                break;
+            case '-' :
+                empilhar((char)(valor1-valor2), *expressao);
+                break;
+            case '*' :
+                empilhar((char)(valor1*valor2), *expressao);
+                break;
+            case '/' :
+                empilhar((char)(valor1/valor2), *expressao);
+                break;
+        }
+    }
 
     return 0;
 }

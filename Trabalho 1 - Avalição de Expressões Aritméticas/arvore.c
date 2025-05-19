@@ -55,8 +55,9 @@ void arvore_imprime (Arvore* arvore){
     }
 }
 
-void processa(Arvore* arvore){
-    printf("%c\n", arvore->elemento);
+char processa(Arvore* arvore){
+    printf("%c ", arvore->elemento);
+    return arvore->elemento;
 }
 
 void pre_ordem(Arvore* arvore){
@@ -75,10 +76,10 @@ void in_ordem(Arvore* arvore){
     }
 }
 
-void pos_ordem(Arvore* arvore){
+char pos_ordem(Arvore* arvore){
     if(!arvore_vazia(arvore)){
         pos_ordem(arvore->esquerdo);
         pos_ordem(arvore->direito);
-        processa(arvore);
+        return processa(arvore);
     }
 }

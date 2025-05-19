@@ -50,7 +50,7 @@ void arvore_imprime (Arvore* arvore);
 //@param  arvore Estrutura de árvore binária para ser vizualizada
 void pre_ordem(Arvore* arvore);
 
-//Executa certa operação em formato de em-ordem (nó esquerdo, raiz, nó direito)
+//Executa certa operação em formato de ordem simétrica (nó esquerdo, raiz, nó direito)
 //@param  arvore Estrutura de árvore binária para ser vizualizada
 void in_ordem(Arvore* arvore);
 

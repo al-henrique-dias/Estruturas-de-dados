@@ -18,8 +18,7 @@ struct pilha{
 //@param topo Endereço do topo de uma estrutura de pilha
 void empilhar(char item, Pilha **topo);
 
-//Remove o item do topo de uma estrutura de pilha
+//Retorna o elemento do topo de uma estrutura de pilha e o remove
 //@param topo Endereço do topo de uma estrutura de pilha a ser removido
-void desempilhar(Pilha **topo);
-
-char usar_topo(Pilha **topo);
+//@return Elemento do topo de uma estrutura de pilha
+char desempilhar(Pilha **topo);

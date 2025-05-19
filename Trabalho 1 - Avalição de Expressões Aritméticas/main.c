@@ -26,7 +26,7 @@ int main(){
         printf("\nInsira a expressao %d:\n", i + 1);
         scanf("%s", expressao[i]);
         expressao[i][strlen(expressao[i])] = '\0';
-        sub = 0;//reseta, mas em uso começa em 1
+        sub = 0;
         for(int j = 0; j < strlen(expressao[i]); j++){//percorre a expressão i
             if(expressao[i][j] == ')'){//quando um parênteses é encontrado na expressão, o programa começa a buscar pelos símbolos e números correspondentes
                 for(int l = j; l > 0; l--){
@@ -40,12 +40,12 @@ int main(){
                                 //PARA TESTES - isto está procurando por letras, alterar para isdigit(expressao[i][k-1])
                                     arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
                                     :
-                                    subarvore[(int)usar_topo(&galhos)],
+                                    subarvore[(int)desempilhar(&galhos)],
                                 isalpha(expressao[i][l+1]) ?//sub-árvore direita
                                 //PARA TESTES - isto está procurando por letras, alterar para isdigit(expressao[i][k+1])
                                     arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
                                     :
-                                    subarvore[(int)usar_topo(&galhos)]
+                                    subarvore[(int)desempilhar(&galhos)]
                             );
                             arvore_imprime(arvore[i]);
                             printf("raiz da arvore %d: %c\n", i, expressao[i][l]);
@@ -70,7 +70,7 @@ int main(){
                         );
                         if(!(isalpha(expressao[i][l-1])))
                             desempilhar(&galhos);
-                        if(!(isalpha(expressao[i][l-1])))
+                        if(!(isalpha(expressao[i][l+1])))
                             desempilhar(&galhos);
                         empilhar(sub, &galhos);//empilhar posição do vetor
                         arvore_imprime(subarvore[sub]);

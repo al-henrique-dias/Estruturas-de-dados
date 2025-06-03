@@ -8,8 +8,27 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "arvore.h"
 #include "pilha.h"
+
+void extrai_numero_esq(char* expressao, int posicao, char* numero) {
+    int digito = posicao;
+    while (digito > 0 && isdigit(expressao[digito - 1]))
+        digito--;
+    int tamanho = posicao - digito + 1;
+    strncpy(numero, &expressao[digito], tamanho);
+    numero[tamanho] = '\0';
+}
+
+void extrai_numero_dir(char* expressao, int posicao, char* numero) {
+    int digito = posicao;
+    while (isdigit(expressao[digito + 1]))
+        digito++;
+    int tamanho = digito - posicao + 1;
+    strncpy(numero, &expressao[posicao], tamanho);
+    numero[tamanho] = '\0';
+}
 
 int main(){
 
@@ -25,7 +44,6 @@ int main(){
 
         printf("\nInsira a expressao %d:\n", i + 1);
         scanf("%s", expressao[i]);
-        expressao[i][strlen(expressao[i])] = '\0';
         printf("\nExpressao: %s\n", expressao[i]);
 
         sub = 0;
@@ -36,16 +54,23 @@ int main(){
                 for(int l = j; l > 0; l--){
 
                     if(ispunct(expressao[i][l]) && (expressao[i][l] != '(') && (expressao[i][l] != ')')){
+                        
+                        char numero_esq[10] = "\0", numero_dir[10] = "\0";
+                        if(isdigit(expressao[i][l-1]))
+                            extrai_numero_esq(expressao[i], l-1, numero_esq);
+                        if(isdigit(expressao[i][l+1]))
+                            extrai_numero_dir(expressao[i], l+1, numero_dir);
+
                         if(j == strlen(expressao[i]) - 1){
 
                             arvore = arvore_cria(
-                                expressao[i][l],//raiz
+                                (char[]){expressao[i][l], '\0'},//raiz
                                 isdigit(expressao[i][l-1]) ?//sub-árvore esquerda
-                                    arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
+                                    arvore_cria(numero_esq, arvore_criavazia(), arvore_criavazia())
                                     :
                                     subarvore[desempilhar(&galhos)],
                                 isdigit(expressao[i][l+1]) ?//sub-árvore direita
-                                    arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
+                                    arvore_cria(numero_dir, arvore_criavazia(), arvore_criavazia())
                                     :
                                     subarvore[desempilhar(&galhos)]
                             );
@@ -56,16 +81,16 @@ int main(){
                         }
 
                         subarvore[sub] = arvore_cria(
-                            expressao[i][l],//raiz da subárvore
+                            (char[]){expressao[i][l], '\0'},//raiz da subárvore
                             isdigit(expressao[i][l-1]) ?//folha esquerda da subárvore
-                                arvore_cria(expressao[i][l-1], arvore_criavazia(), arvore_criavazia())
+                                arvore_cria(numero_esq, arvore_criavazia(), arvore_criavazia())
                                 :
                                 (expressao[i][l-1] != ')') && (expressao[i][l+1] != '(') ?
                                     subarvore[sub-1]
                                     :
                                     subarvore[sub-2],
                             isdigit(expressao[i][l+1]) ?//folha direita da subárvore
-                                arvore_cria(expressao[i][l+1], arvore_criavazia(), arvore_criavazia())
+                                arvore_cria(numero_dir, arvore_criavazia(), arvore_criavazia())
                                 :
                                 subarvore[sub-1]
                         );

@@ -11,7 +11,7 @@
 //Árvore binária
 typedef struct arvore Arvore;
 struct arvore {
-    char elemento[5];
+    char elemento[10];
     struct arvore* direito;
     struct arvore* esquerdo;
 };

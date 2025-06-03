@@ -19,8 +19,8 @@ Arvore* arvore_criavazia(){
 Arvore* arvore_cria(char* elemento, Arvore* esquerdo, Arvore* direito){
     Arvore* arvore = (Arvore*)malloc(sizeof(Arvore));
     strcpy(arvore->elemento, elemento);
-    arvore->esquerdo, esquerdo;
-    arvore->direito, direito;
+    arvore->esquerdo = esquerdo;
+    arvore->direito = direito;
     return arvore;
 }
 
@@ -91,23 +91,23 @@ void avaliar(Arvore* arvore, Pilha** expressao){
         avaliar(arvore->esquerdo, expressao);
         avaliar(arvore->direito, expressao);
         //processa(arvore);
-        if(isdigit(arvore->elemento))
+        if(isdigit(arvore->elemento[0]))
             empilhar(atoi(arvore->elemento), expressao);
         else{
             int valor1 = desempilhar(expressao);
             int valor2 = desempilhar(expressao);
             switch(*arvore->elemento){
                 case '+':
-                    empilhar(valor1 + valor2, expressao);
+                    empilhar((valor1 + valor2), expressao);
                     break;
                 case '-':
-                    empilhar(valor1 - valor2, expressao);
+                    empilhar((valor1 - valor2), expressao);
                     break;
                 case '*':
-                    empilhar(valor1 * valor2, expressao);
+                    empilhar((valor1 * valor2), expressao);
                     break;
                 case '/':
-                    empilhar(valor1 / valor2, expressao);
+                    empilhar((valor1 / valor2), expressao);
                     break;
             }
         }

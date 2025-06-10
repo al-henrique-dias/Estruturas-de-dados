@@ -26,4 +26,4 @@ Node * insert(int new_key, Node* root);
 //@return If it is not found, the function returns NULL.
 Node * search(int key, Node* root);
 
-void remove(int key, Node* root);
+Node * remove(int key, Node* root);

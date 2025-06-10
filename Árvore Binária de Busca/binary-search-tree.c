@@ -60,38 +60,68 @@ Node * search(int key, Node* root){
 
 }
 
-//work in progress
-void remove(int key, Node* root){
+Node * remove(int key, Node* root){
 
-    Node *node = search(key, root);
+    Node *node = root;
+    Node *parent = NULL;
 
-    if(node == NULL){
-        printf("Key not found or tree is empty.");
-        return;
+    while(node != NULL && node->key != key){
+        parent = node;
+        if(key < node->key)
+            node = node->left;
+        else if(key > node->key)
+            node = node->right;
     }
-    
-    if(node->right == NULL){
-        Node *aux = node->left;
-        node = aux->left;
+
+    //Key not found or tree is empty.
+    if(node == NULL)
+        return root;
+
+    Node* current = NULL;
+
+    if(node->left == NULL || node->right == NULL) {
+
+        //Checks wich child the node has
+        if(node->right == NULL)
+            current = node->left;
+        else
+            current = node->right;
+
+        //If the node is the root
+        if(parent == NULL){
+            free(node);
+            return current;
+        }
+
+        //Treats parent's 
+        if(node == parent->left)
+            parent->left = current;
+        else
+            parent->right = current;
+
+        free(node);
+
+    } else {
+        
+        Node* aux = node->right;//aux is the in-order successor
+
+        //Finds the in-order successor
+        while(aux->left != NULL) {
+            current = aux;//current will be treated as the parent of aux
+            aux = aux->left;
+        }
+
+        if(current != NULL)
+            current->left = aux->right;
+        else
+            node->right = aux->right;
+
+        node->key = aux->key;
+
         free(aux);
-        return;
+
     }
 
-    if(node->left == NULL){
-        Node *aux = node;
-        node = aux->right;
-        free(aux);
-        return;
-    }
-
-    Node *current = node->right;
-    int aux;
-
-    while(current->left != NULL)
-        current = current->left;
-    aux = node->key;
-    node->key = current->key;
-    current->key = aux;
-    
+    return root;
 
 }   

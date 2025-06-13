@@ -93,7 +93,8 @@ Node * remove(int key, Node* root){
             return current;
         }
 
-        //Treats parent's 
+        //The parent needs to point to something
+        //So we point to current, which can be a node or NULL
         if(node == parent->left)
             parent->left = current;
         else
@@ -103,17 +104,21 @@ Node * remove(int key, Node* root){
 
     } else {
         
-        Node* aux = node->right;//aux is the in-order successor
+        Node* aux = node->right;//aux is the in-order successor (the smallest node in the right subtree)
 
         //Finds the in-order successor
         while(aux->left != NULL) {
-            current = aux;//current will be treated as the parent of aux
+            current = aux;
             aux = aux->left;
         }
 
+        //The parent needs to point to something
+        //So we point to the right child of aux, because it can be a node or NULL (great!)
         if(current != NULL)
+        //if current isn't NULL, then it is aux's parent
             current->left = aux->right;
         else
+        //if current is NULL, then the very node is aux's parent
             node->right = aux->right;
 
         node->key = aux->key;

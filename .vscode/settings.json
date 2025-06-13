@@ -3,6 +3,8 @@
         "stdio.h": "c",
         "pilha.h": "c",
         "arvore.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "bit": "c",
+        "limits": "c"
     }
 }

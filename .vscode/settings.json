@@ -5,6 +5,7 @@
         "arvore.h": "c",
         "string.h": "c",
         "bit": "c",
-        "limits": "c"
+        "limits": "c",
+        "stdlib.h": "c"
     }
 }

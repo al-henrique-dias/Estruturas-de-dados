@@ -19,12 +19,12 @@ int get_height(Node* node){
     return node == NULL ? -1 : node->height;
 }
 
-void updateHeight(Node *node){
+void update_height(Node *node){
     //Node height is the height of the tallest subtree + 1
     node->height = get_height(node->left) > get_height(node->right) ? get_height(node->left) + 1 : get_height(node->right) + 1;
 }
 
-int balance_factor(Node *node){
+int get_balance_factor(Node *node){
     return node == NULL ? 0 : get_height(node->left) - get_height(node->right);
 }
 
@@ -44,6 +44,7 @@ Node * rotate_left(Node *node){
 }
 
 Node * rotate_right(Node *node){
+
     Node * child = node->left;
     Node * grandchild = child->right;
 
@@ -52,6 +53,8 @@ Node * rotate_right(Node *node){
 
     updateHeight(node);
     updateHeight(child);
+
+    return child;
 
 }
 
@@ -199,6 +202,10 @@ Node * remove(int key, Node* root){
         free(aux);
 
     }
+
+    updateHeight(root);
+
+    root = rotate(root);
 
     return root;
 

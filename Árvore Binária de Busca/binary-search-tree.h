@@ -29,5 +29,5 @@ Node * search(int key, Node* root);
 //Removes a node with a given key from the BST
 //@param key Key of the node to be removed
 //@param root Pointer to the tree's root
-//@return The new root of the tree. If the key was not found, the root remains unchanged.
+//@return  A pointer to the new root of the tree. If the key was not found, the root remains unchanged.
 Node * remove(int key, Node* root);

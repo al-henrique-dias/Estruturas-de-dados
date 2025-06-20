@@ -1,3 +1,13 @@
+/**************************************************
+*
+* Nome dos(as) estudantes: Henrique Dias Albernaz
+* Trabalho 2
+* Disciplina: Estrutura de Dados
+* Objetivo: Cadastro de estudantes utilizando árvore AVL
+* Principais referências: https://www.hello-algo.com/en/chapter_tree/avl_tree/; https://www.geeksforgeeks.org/dsa/introduction-to-avl-tree/; Programe seu futuro (YouTube); Materiais de aula;
+* Repositório online: https://github.com/al-henrique-dias/Estruturas-de-dados/
+*/
+
 typedef struct avl_tree Node;
 typedef struct data_nascimento Data_nascimento;
 
@@ -22,8 +32,7 @@ struct avl_tree{
     struct avl_tree *right;//caso algo dê errado, talvez seja a terminodelogia, tente: struct avl_tree * right;
 };
 
-//Creates a new AVL Tree node with a given item as the node's key and NULL children
-//change
+//Allocates a new AVL Tree node (with NULL children) and estabilish the attributes by the function parameters (with rga as the "node's key")
 //@param item The new node's key
 //@return Pointer to the new node.
 Node * create_node(int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso);
@@ -61,7 +70,7 @@ Node * rotate(Node *node);
 //change
 //@param new_key New node's key to be inserted
 //@param root Pointer to the tree's root
-//@return If the new key is not already in the tree, the function returns a pointer to the new node.
+//@return If the new key is not already in the tree, the function returns a pointer to the new root of the tree.
 //@return If it already exists, the function returns NULL.
 Node * insert_node(int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso, Node *root);
 
@@ -77,6 +86,10 @@ Node * search_node(int rga, Node *root);
 //@param root Pointer to the tree's root
 //@return A pointer to the new root of the tree. If the key was not found, the root remains unchanged.
 Node * remove_node(int rga, Node *root);
+
+void update_node(Node *node, int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso);
+
+Node * free_AVL(Node *root);
 
 void pre_order(Node* root);
 void in_order(Node* root);

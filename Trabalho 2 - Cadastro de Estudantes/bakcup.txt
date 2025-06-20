@@ -1,0 +1,52 @@
+    //Note: I first tried to perform this function iteratively, but I couldn't get it :(
+
+    //The node is empty, the recursion stops
+    if(root == NULL)
+        return NULL;
+
+    //Recursive binary search for position to remove the node
+    if(rga < root->rga){
+        root->left = remove_node(rga, root->left);
+    }else if(rga > root->rga){
+        root->right = remove_node(rga, root->right);
+    }else{//Key found
+        if(root->left == NULL || root->right == NULL){//Node with one or zero children
+
+            Node *child;
+
+            //Checks wich child the node has
+            if(root->right == NULL)
+                child = root->left;
+            else
+                child = root->right;
+
+            //Child is NULL (there's no child)
+            if(child == NULL){
+                free(root);
+                return NULL;
+            }else{//There's a child
+                free(root);
+                root = child;
+            }
+
+        }else{
+            
+            Node* aux = root->right;//aux is the in-order successor (the smallest node in the right subtree)
+
+            //Finds the in-order successor
+            while(aux->left != NULL) {
+                aux = aux->left;
+            }
+            int key = aux->rga;
+            root->right = remove_node(aux->rga, root->right);
+            root->rga = key;
+        }
+
+    }
+
+    //For every function call, we update the height of the node and perform a rotation (if necessary)
+    update_height(root);
+    root = rotate(root);
+
+    //Returns a pointer to the new root of the tree
+    return root;

@@ -18,8 +18,8 @@ struct avl_tree{
     int ano_ingresso;
 
     int height;
-    Node *left;
-    Node *right;//caso algo dê errado, talvez seja a terminodelogia, tente: struct avl_tree * right;
+    struct avl_tree *left;
+    struct avl_tree *right;//caso algo dê errado, talvez seja a terminodelogia, tente: struct avl_tree * right;
 };
 
 //Creates a new AVL Tree node with a given item as the node's key and NULL children
@@ -63,17 +63,21 @@ Node * rotate(Node *node);
 //@param root Pointer to the tree's root
 //@return If the new key is not already in the tree, the function returns a pointer to the new node.
 //@return If it already exists, the function returns NULL.
-Node * insert(int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso, Node *root);
+Node * insert_node(int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso, Node *root);
 
 //Searches for a given key in a AVL Tree
 //@param key Key being searched for
 //@param root Pointer to the tree's root
 //@return If the given key is found, the function returns a pointer to it's node.
 //@return If it is not found, the function returns NULL.
-Node * search(int rga, Node *root);
+Node * search_node(int rga, Node *root);
 
 //Removes a node with a given key from the AVL Tree
 //@param key Key of the node to be removed
 //@param root Pointer to the tree's root
 //@return A pointer to the new root of the tree. If the key was not found, the root remains unchanged.
-Node * remove(int rga, Node *root);
+Node * remove_node(int rga, Node *root);
+
+void pre_order(Node* root);
+void in_order(Node* root);
+void post_order(Node* root);

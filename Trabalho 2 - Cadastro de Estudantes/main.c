@@ -16,61 +16,68 @@ int main(){
     int ano_ingresso;
 
     do{
-        printf("O que deseja?\n");
+        printf("\nO que deseja?\n");
         printf("1 - Inserir novo Estudante\n");
         printf("2 - Buscar Estudante\n");//remover?
         printf("3 - Remover Estudante\n");
-        printf("4 - Listar Estudante\n");//usar para debug, depois mudar para atualizar estudante
+        printf("4 - Listar Estudantes\n");//usar para debug, depois mudar para atualizar estudante
         printf("0 - Sair\n");
-        printf("Insira o número de sua escolha: ");
+        printf("Insira o numero de sua escolha: ");
         scanf("%d", &menu);
         switch(menu){
             case 1:
                 //Inserir estudante
                 printf("\nInsira os dados do novo estudante\nRGA: ");
                 scanf("%d", &rga);
-                printf("\nNome: ");
-                scanf("%s", nome);
-                printf("\nData de nascimento:");
-                printf("\nDia: ");
+                printf("Nome: ");
+                scanf(" %59[^\n]", nome);
+                printf("Data de nascimento:\n");
+                printf("Dia: ");
                 scanf("%d", &data_nasc.dia);
-                printf("\nMes: ");
+                printf("Mes: ");
                 scanf("%d", &data_nasc.mes);
-                printf("\nAno: ");
+                printf("Ano: ");
                 scanf("%d", &data_nasc.ano);
-                printf("\nCodigo do curso: ");
+                printf("Codigo do curso: ");
                 scanf("%d", &codigo_curso);
-                printf("\n Ano de ingresso");
+                printf("Ano de ingresso: ");
                 scanf("%d", &ano_ingresso);
-                insert(rga, nome, data_nasc, codigo_curso, ano_ingresso, estudantes);
-                prinft("\n");
+                estudantes = insert_node(rga, nome, data_nasc, codigo_curso, ano_ingresso, estudantes);
+                printf("\n");
                 break;
             case 2:
                 //Buscar estudante
                 printf("\nInsira o RGA do estudante para busca: ");
                 scanf("%d", &rga);
-                estudantes = search(rga, estudantes);
-                printf(estudantes != NULL ? "O estudante está registrado no sistema" : "O estudante não foi encontrado no sistema");
-                prinft("\n");
+                Node *estudante = search_node(rga, estudantes);
+                if(search_node(rga, estudantes) != NULL){
+                    printf("O estudante foi encontrado no sistema:\n");
+                    printf("RGA: %d\nNome: %s\nData de nascimento: %d/%d/%d\nCodigo do curso: %d\nAno de ingresso: %d\n",
+                            estudante->rga, estudante->nome, estudante->data_nasc.dia, estudante->data_nasc.mes, estudante->data_nasc.ano, estudante->codigo_curso, estudante->ano_ingresso);
+                } else
+                    printf("O estudante nao foi encontrado no sistema\n");
                 break;
             case 3:
                 //Remover estudante
                 Node *aux = estudantes;
-                printf("\nInsira o RGA do estudante para remoção: ");
+                printf("\nInsira o RGA do estudante para remocao: ");
                 scanf("%d", &rga);
-                estudantes = remove(rga, estudantes);
-                prinf(aux != estudantes ? "Estudante removido com sucesso" : "O estudante não foi encontrado no sistema");
-                prinft("\n");
+                estudantes = remove_node(rga, estudantes);
+                printf("\n");
                 break;
             case 4:
                 //Listar estudantes
-                prinft("\n");
+                if(estudantes != NULL){
+                    printf("\nLista de estudantes:\n\n");
+                    pre_order(estudantes);
+                } else
+                    printf("\nNenhum estudante cadastrado no sistema\n");
                 break;
             case 0:
-                printf("Have a nice day :)\n");
+                printf("\nHave a nice day :)\n");
                 break;
             default:
-                printf("Sua escolha não faz sentido, digite algo que faça sentido\n");
+                printf("\nSua escolha não faz sentido, digite algo que faça sentido\n");
                 break;
         }
     }while(menu != 0); 

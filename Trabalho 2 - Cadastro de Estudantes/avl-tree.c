@@ -42,8 +42,8 @@ Node * rotate_left(Node *node){
     child->left = node;
     node->right = grandchild;
 
-    updateHeight(node);
-    updateHeight(child);
+    update_height(node);
+    update_height(child);
 
     return child;
 
@@ -57,8 +57,8 @@ Node * rotate_right(Node *node){
     child->right = node;
     node->left = grandchild;
 
-    updateHeight(node);
-    updateHeight(child);
+    update_height(node);
+    update_height(child);
 
     return child;
 
@@ -66,11 +66,11 @@ Node * rotate_right(Node *node){
 
 Node * rotate(Node *node){
 
-    int balance = balance_factor(node);
+    int balance = get_balance_factor(node);
 
     //Unbalanced to the left
     if(balance > 1){
-        if(balance_factor(node->left) >= 0)
+        if(get_balance_factor(node->left) >= 0)
             return rotate_right(node);
         else{
             node->left = rotate_left(node->left);
@@ -79,7 +79,7 @@ Node * rotate(Node *node){
     }
     //Unbalanced to the right
     if(balance < -1){
-        if(balance_factor(node->right) <= 0)
+        if(get_balance_factor(node->right) <= 0)
             return rotate_left(node);
         else{
             node->right = rotate_right(node->right);
@@ -92,40 +92,31 @@ Node * rotate(Node *node){
 
 }
 
-Node * insert(int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso, Node *root){
-
-    Node *new_node = create_node(rga, nome, data_nasc, codigo_curso, ano_ingresso);
+Node * insert_node(int rga, char *nome, Data_nascimento data_nasc, int codigo_curso, int ano_ingresso, Node *root){
 
     //if the tree is empty
-    if(root == NULL)
-        return new_node;
+    if(root == NULL){
+        root = create_node(rga, nome, data_nasc, codigo_curso, ano_ingresso);;
+        update_height(root);
+        return root;
+    }        
 
-    Node *parent = NULL, *current = root;
-
-    while(current != NULL){
-        parent = current;
-        if(rga < current->rga)
-            current = current->left;
-        else if(rga > current->rga)
-            current = current->right;
-        else //if the rga already exists
-            return NULL;
+    if(rga < root->rga){
+        root->left = insert_node(rga, nome, data_nasc, codigo_curso, ano_ingresso, root->left);
+    }else if(rga > root->rga){
+        root->right = insert_node(rga, nome, data_nasc, codigo_curso, ano_ingresso, root->right);
+    }else{
+        return root;
     }
 
-    if(rga < parent->rga)
-        parent->left = new_node;
-    else
-        parent->right = new_node;
+    update_height(root);
+    root = rotate(root);
 
-    updateHeight(new_node);
-
-    new_node = rotate(new_node);
-
-    return new_node;
+    return root;
 
 }
 
-Node * search(int rga, Node *root){
+Node * search_node(int rga, Node *root){
 
     Node *current = root;
 
@@ -142,7 +133,7 @@ Node * search(int rga, Node *root){
 
 }
 
-Node * remove(int rga, Node *root){
+Node * remove_node(int rga, Node *root){
 
     Node *node = root;
     Node *parent = NULL;
@@ -156,8 +147,10 @@ Node * remove(int rga, Node *root){
     }
 
     //rga not found or tree is empty.
-    if(node == NULL)
+    if(node == NULL){
+        printf("O estudante não foi encontrado no sistema.\n");
         return root;
+    }
 
     Node* current = NULL;
 
@@ -209,10 +202,40 @@ Node * remove(int rga, Node *root){
 
     }
 
-    updateHeight(root);
+    update_height(root);
 
     root = rotate(root);
 
+    printf("O estudante foi removido com sucesso.\n");
     return root;
 
-}   
+}  
+
+void processa(Node *root){
+    printf("RGA: %d\nNome: %s\nData de nascimento: %d/%d/%d\nCodigo do curso: %d\nAno de ingresso: %d\n",
+            root->rga, root->nome, root->data_nasc.dia, root->data_nasc.mes, root->data_nasc.ano, root->codigo_curso, root->ano_ingresso);
+}
+
+void pre_order(Node *root){
+    if(root != NULL){
+        processa(root);
+        pre_order(root->left);
+        pre_order(root->right);
+    }
+}
+
+void in_order(Node *root){
+    if(root != NULL){
+        in_order(root->left);
+        processa(root);
+        in_order(root->right);
+    }
+}
+
+void post_order(Node *root){
+    if(root != NULL){
+        post_order(root->left);
+        post_order(root->right);
+        processa(root);
+    }
+}
